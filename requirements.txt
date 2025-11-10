@@ -1,0 +1,12 @@
+# Core scientific stack
+numpy
+pandas
+scikit-learn
+joblib
+matplotlib
+seaborn
+
+# Quantum machine learning
+qiskit
+qiskit-machine-learning
+qiskit-algorithms

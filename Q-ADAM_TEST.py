@@ -2,7 +2,6 @@
 # Q-ADAM_ENHANCED.py
 # Quantum Anomaly Detection - Production Version
 # Combines efficiency of V2 with comprehensive metrics from V1
-# Author: Mohamed Amine Harchi
 # =============================================================================
 
 import matplotlib
@@ -40,7 +39,7 @@ print("✅ Libraries imported successfully.\n")
 # =============================================================================
 CONFIG = {
     # Data
-    "DATA_PATH": "PCA_REDUCTION/UNSW_NB15_PCA_4.csv",
+    "DATA_PATH": "/Users/mac/Downloads/Folder/Fall26/QC/Q-ADAM/QUANTUM-NETWORK-ANOMALY-DETECTION/PCA_REDUCTION/UNSW NB15 PCA 4.csv",
     "TEST_SIZE": 0.2,
     "RANDOM_SEED": 42,
 
