@@ -8,6 +8,7 @@ import matplotlib
 matplotlib.use("Agg")
 
 import os
+import time
 import logging
 import joblib
 import numpy as np
@@ -192,10 +193,12 @@ def train_qvae(clf, X_train, y_train, X_val, y_val):
     """Train Quantum Neural Network with mini-batch ADAM."""
     B = CONFIG["BATCH_SIZE"]
     history, best_ma = [], float("inf")
+    start_time = time.time()
 
     logger.info(f"Training for {CONFIG['EPOCHS']} epochs with batch_size={B}")
 
     for epoch in range(1, CONFIG["EPOCHS"] + 1):
+        epoch_start = time.time()
         # Shuffle data each epoch
         Xs, ys = shuffle(X_train, y_train, random_state=np.random.randint(1e9))
 
@@ -221,6 +224,18 @@ def train_qvae(clf, X_train, y_train, X_val, y_val):
             best_ma = ma
             joblib.dump(clf, CONFIG["CKPT"])
             logger.info(f"  ✓ Checkpoint saved (MA={best_ma:.4f})")
+
+        now = time.time()
+        epoch_duration = now - epoch_start
+        elapsed = now - start_time
+        avg_epoch_time = elapsed / epoch
+        remaining_epochs = CONFIG["EPOCHS"] - epoch
+        eta_seconds = max(remaining_epochs * avg_epoch_time, 0)
+        eta_minutes = eta_seconds / 60
+        logger.info(
+            f"[Epoch {epoch:03d}] done in {epoch_duration:.1f}s | "
+            f"ETA ~{eta_minutes:.1f}m for {remaining_epochs} more epoch(s)"
+        )
 
     # Load best model
     best_model = joblib.load(CONFIG["CKPT"])
